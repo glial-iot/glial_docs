@@ -1,5 +1,6 @@
 module.exports = {
    theme: 'custom',
+   base: '/glial-site/docs/',
    themeConfig: {
       nav: [
          {
