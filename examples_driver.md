@@ -41,7 +41,7 @@ local mqtt_host = "mosquitto"
 local mqtt_port = 1883
 local mqtt_name = "glue_".._script_name.."_"..require('system').random_string()
 local mqtt_object
-topics = {"/ud/1674/lora/commands"}
+masks = {"/ud/1674/lora/commands"}
 
 local function driver_mqtt_callback(message_id, topic, payload, qos, retain)
    if (payload == nil) then return end
