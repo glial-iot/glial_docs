@@ -19,6 +19,7 @@ module.exports = {
                { text: 'Панель управления', link: '/panel.html' },
                { text: 'Руководство разработчика', link: '/developers.html' },
                { text: 'Внутренности системы', link: '/inside.html' },
+               { text: 'Инструменты тестирования', link: '/tests.html' },
                { text: 'История изменений', link: '/changelog.html' }
             ]
          },
@@ -38,7 +39,7 @@ module.exports = {
       lastUpdated: 'Last Updated',
       logo: '/logo.png'
    }
-}
+};
 
 
 
