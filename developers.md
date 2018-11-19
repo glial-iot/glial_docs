@@ -106,7 +106,7 @@ local copy_table = deepcopy(old_table)
 local r = http_client:get('http://google.com')
 print(r.body)
 ``` 
-[Документация](https://www.tarantool.io/en/doc/1.9/reference/reference_lua/http/)  
+[Документация](https://www.tarantool.io/en/doc/1.10/reference/reference_lua/http/)  
 
 
 #### Библиотека MQTT
@@ -128,7 +128,7 @@ ok, err = mqtt_object:publish('my/topic/#', 'Some payload as string', mqtt.QOS_0
 json.encode({abc = 234, cde = 345}) --> '{"cde":345,"abc":234}'
 json.decode('[123, "hello"]') --> [123, 'hello']
 ```
-[Документация](https://www.tarantool.io/en/doc/1.9/reference/reference_lua/json/)  
+[Документация](https://www.tarantool.io/en/doc/1.10/reference/reference_lua/json/)  
 
 
 #### Библиотека Socket
@@ -142,7 +142,7 @@ sock_2:sendto('127.0.0.1', sock_1:name().port,'X')
 message = sock_1:recvfrom()
 print(message) --> X
 ```
-[Документация](https://www.tarantool.io/en/doc/1.9/reference/reference_lua/socket/)  
+[Документация](https://www.tarantool.io/en/doc/1.10/reference/reference_lua/socket/)  
 
 
 #### Библиотека Fiber
@@ -160,7 +160,7 @@ local function loop()
 end
 fiber.create(loop)
 ``` 
-[Документация](https://www.tarantool.io/en/doc/1.9/reference/reference_lua/fiber/)  
+[Документация](https://www.tarantool.io/en/doc/1.10/reference/reference_lua/fiber/)  
 
 
 ## Скрипты и драйвера
