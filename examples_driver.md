@@ -74,7 +74,7 @@ function init()
    end
 end
 
-function topic_update_callback(value, topic)
+function topic_update_callback(value, topic, timestamp)
    mqtt_object:publish('devices/lora/commands', value, mqtt.QOS_0, mqtt.RETAIN)
 end
 
