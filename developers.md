@@ -145,6 +145,15 @@ print(message) --> X
 [Документация](https://www.tarantool.io/en/doc/1.10/reference/reference_lua/socket/)  
 
 
+#### Библиотека Clock
+Библиотека для получения текущего времени. Доступна через объект `clock`  
+```lua
+local current_time_s = clock.time()  -- = clock.time64()/1000/1000/1000
+local current_time_ms = clock.time() * 1000 -- = clock.time64()/1000/1000
+local current_time_ns = clock.time64() 
+```
+[Документация](https://www.tarantool.io/en/doc/1.10/reference/reference_lua/clock/)  
+
 #### Библиотека Fiber
 Библиотека для работы с потоками. Доступна через объект `fiber`  
 Не стоит подключать библиотеку fiber вручную, т.е. делать "local fiber = require 'fiber'".  
