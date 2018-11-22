@@ -29,3 +29,19 @@ local formatted_time = os.date("%Y-%m-%dT%H:%M", current_time_s) --2018-11-13T20
 %Y	full year (1998)
 %y	two-digit year (98) [00-99]
 %%	the character `%´
+
+## Поиск внутри подстроки
+
+
+local _, _, space_number = string.find(data_string, "(%d+).+")
+
+
+## Циклы
+
+for i = 10, 1, 1 do -- цикл от 10 до 1 с шагом 1
+   MsgBox ("i равно "..i)
+end
+
+for key, val in pairs(t) do
+   MsgBox ("key == "..key.."; val == "..val)
+end
