@@ -176,7 +176,95 @@ fiber.create(loop)
 
 ### Drivers
 Драйвера — это скрипты на Lua, которые реализуют тот или иной протокол(часто с привлечением сторонних библиотек) для связи с устройством, конвертируя данные приходящие с каждого устройства в единый формат. Они работают в качестве транслятора между "языком" устройства и общей шиной.  
-<!-- описать драйвера подробнее, нарисовать диаграмму жизненного цикла -->  
+
+Рассмотрим драйверы подробнее на примере шаблона драйвера, который подставляется при его создании:
+
+```lua
+masks = {"/test/1", "/test/2"}
+
+local function main()
+   while true do
+      print("Test driver loop")
+      fiber.sleep(600)
+   end
+end
+
+function init()
+   store.fiber_object = fiber.create(main)
+end
+
+function destroy()
+   if (store.fiber_object:status() ~= "dead") then
+      store.fiber_object:cancel()
+   end
+end
+
+function topic_update_callback(value, topic, timestamp)
+   print("Test driver callback:", value, topic)
+end
+```
+
+Функция `init()` выполняется при запуске драйвера. В данном примере, она создает объект `fiber_object` из функции `main`.  
+
+```lua
+function init()
+   store.fiber_object = fiber.create(main)
+end
+```
+
+В функции `main()` реализуется основная логика работы драйвера (опрос источников данных, преобразование данных, запись данных на шину).  
+Название функции может быть любым. Количество таких функций тоже.
+
+```lua
+local function main()
+   while true do
+      print("Test driver loop")
+      fiber.sleep(600)
+   end
+end
+```
+
+Для управления файбером (потоком) используются функции модуля `fiber`. В данном случае - `fiber.sleep(600)` - скрипт будет ждать 600 секунд по окончанию каждой итерации цикла.  
+
+Функция `destroy()` выполняется при остановке скрипта.  
+В ней целесообразно размещать логику, которая выгружает из памяти используемые данные, сохраняет состояние для будущих запусков или предотвращает завершение скрипта до перезагрузки Glue.
+
+```lua
+function destroy()
+   if (store.fiber_object:status() ~= "dead") then
+      store.fiber_object:cancel()
+   end
+end
+```  
+
+В коде примера, функция `destroy()` завершает файбер, в случае если он уже не завершен.
+
+В случае, если остановку драйвера требуется отсрочить до перезагрузки Glue, можно сделать `return false` в функции `destroy()`.
+```lua
+function destroy()
+   return false
+end
+``` 
+
+Функция `topic_update_callback()` используется для реакции на изменение значений топиков на шине.  
+
+```lua
+function topic_update_callback(value, topic, timestamp)
+   print("Test driver callback:", value, topic)
+end
+```
+
+Топики, изменение которых отслеживается драйвером перечисляются в виде масок в переменной `masks`.
+
+```lua
+masks = {"/test/1", "/test/2"}
+```  
+
+Т.е. в данном случае, при каждом изменении топиков `/test/1` и `/test/1` будет выполнена функция, делающая запись в логах с названием и значением топика.
+
+
+<!-- нарисовать диаграмму жизненного цикла -->  
+
 [Примеры драйверов](examples_driver.md)
 
 ### Bus-event scripts
