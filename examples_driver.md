@@ -7,7 +7,7 @@
 ```lua
 local function get_values()
    local client = require'http.client'.new();
-   local http_result = client:post('http://exapble.com/sensors/pm/last.php')
+   local http_result = client:post('http://example.com/sensors/pm/last.php')
    local decoded_data = require('json').decode(http_result.body)
 
    set_value("/air/pm25", decoded_data.pm25)
@@ -28,6 +28,50 @@ end
 function destroy()
    if (store.fiber_object:status() ~= "dead") then
       store.fiber_object:cancel()
+   end
+end
+```
+
+## Пример адаптера для InfluxDB
+
+Пример драйвера, который отправляет значения всех топиков в InfluxDB по http-коннектору. 
+
+```lua
+init, destroy, masks = function() end, function() end, {".+"}
+
+local influx = {}
+influx.INFLUX_ADDRESS = "http://localhost:8086"
+influx.UTC_OFFSET = 0
+influx.DATABASE_NAME = "glial_db"
+
+local url_add_value = string.format('%s/write?db=%s&precision=ms', influx.INFLUX_ADDRESS, influx.DATABASE_NAME)
+local url_create_db = string.format('%s/query', influx.INFLUX_ADDRESS)
+
+function topic_update_callback(value, topic, time_local_s)
+   local value_number = tonumber(value)
+   if (value_number ~= nil) then
+      local time_utc_ms
+      local time_utc_s_string
+      if (time_local_s ~= nil) then
+         local time_utc_s = time_local_s-(influx.UTC_OFFSET*60*60)
+         time_utc_ms = math.ceil(time_utc_s*1000)
+      end
+      local topic_no_spaces = topic:gsub(" ", "_")
+      local data = string.format('%s value=%s %s', topic_no_spaces, value_number, time_utc_ms)
+      local r = http_client:post(url_add_value, data, {timeout = 1})
+      if (r.body ~= nil) then
+         local data = json.decode(r.body)
+         if (string.find(data.error, "database not found")) then
+            local query = string.format('q=CREATE DATABASE %s', influx.DATABASE_NAME)
+            http_client:post(url_create_db, query, {timeout = 1})
+            log_warning('Database created:', influx.DATABASE_NAME)
+         else
+            log_error('Influxdb return error:', r.body)
+         end
+      else
+         store.influx_count = (store.influx_count or 0) + 1
+         shadow_set_value("/glue/export/influx_count", store.influx_count)
+      end
    end
 end
 ```
