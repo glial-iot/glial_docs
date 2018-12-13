@@ -34,3 +34,11 @@ TARANTOOL_WAL_DIR=test_db tarantool glue.lua
 ```bash
 TARANTOOL_BIN_PORT=3333 tarantool glue.lua
 ```
+
+### LOG_TYPE
+
+Если в качестве значения переменной LOG_TYPE указать NONE, то логгирование будет отключено.
+
+```bash
+LOG_TYPE=NONE
+```
