@@ -17,3 +17,21 @@ http://oscada.org/ru/khranilishche-novostei/
 
 ## LogicMachine
 http://logicmachine.net.ru
+
+## OpenHUB
+https://www.openhab.org/
+
+## HomeBridge
+https://homebridge.io/
+
+## Domoticz
+https://www.domoticz.com/
+
+## HASS
+
+## Node-RED
+https://nodered.org/
+
+
+## Thingsboard
+https://thingsboard.io/
