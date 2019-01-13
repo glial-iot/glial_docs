@@ -5,6 +5,11 @@
 	}
 ],
    "settings": {
-      "git.ignoreLimitWarning": true
+      "git.ignoreLimitWarning": true,
+      "workbench.colorCustomizations": {
+         "activityBar.background": "#561275",
+         "titleBar.activeBackground": "#4C2A5C",
+         "titleBar.activeForeground": "#FFFFFF",
+      }
    }
 }
