@@ -40,5 +40,5 @@ TARANTOOL_BIN_PORT=3333 tarantool glue.lua
 Если в качестве значения переменной LOG_TYPE указать NONE, то логгирование будет отключено.
 
 ```bash
-LOG_TYPE=NONE
+LOG_TYPE=NONE tarantool glue.lua
 ```
