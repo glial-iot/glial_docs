@@ -1,6 +1,6 @@
 module.exports = {
    theme: 'custom',
-   base: '/site/docs/',
+   base: '/docs/',
    themeConfig: {
       nav: [
          {
