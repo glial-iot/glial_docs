@@ -53,6 +53,9 @@
     </Page>
 
     <SWUpdatePopup :updateEvent="swUpdateEvent"/>
+
+    <noscript><div><img src="https://mc.yandex.ru/watch/52086813" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+
   </div>
 </template>
 
@@ -145,6 +148,19 @@ export default {
     })
 
     this.$on('sw-updated', this.onSWUpdated)
+
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+      m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+    ym(52086813, "init", {
+      id:52086813,
+      clickmap:true,
+      trackLinks:true,
+      accurateTrackBounce:true,
+      webvisor:true
+    });
+
   },
 
   methods: {
