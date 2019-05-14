@@ -92,7 +92,7 @@ local old_table = {1, 2, 4}
 local copy_table = deepcopy(old_table)
 ```
 
-#### get_settings_value()
+#### Функция get_settings_value()
 Функция, позволяющая использовать в скриптах значения настроек Glial (настраиваются во вкладке Settings панели).  
 Функция `get_settings_value(name, [default_value])` вызывается обязательным значением `name` (имя настройки) и опциональным `default_value` (значение по умолчанию).  
 Возвращает 4 значения, если параметр есть в хранилище settings: true, значение настройки, имя настройки, описание настройки.  
