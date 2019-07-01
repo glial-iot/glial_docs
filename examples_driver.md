@@ -70,7 +70,7 @@ function topic_update_callback(value, topic, time_local_s)
          end
       else
          store.influx_count = (store.influx_count or 0) + 1
-         shadow_set_value("/glue/export/influx_count", store.influx_count)
+         update{topic = "/glial/export/tarantool-stat/influx_count", value = store.influx_count, shadow = true}   
       end
    end
 end
@@ -95,9 +95,9 @@ local function driver_mqtt_callback(message_id, topic, payload, qos, retain)
    if (data == nil or data.data == nil or data.status == nil) then return end
    if (lora_data.serial == nil or lora_data.device_type == nil) then return end
 
-   set_value("/ud/1674/lora/"..lora_data.serial.."/".."temperature/1", tonumber(data.data.s1))
-   set_value("/ud/1674/lora/"..lora_data.serial.."/".."rssi", tonumber(data.status.rssi))
-   set_value("/ud/1674/lora/"..lora_data.serial.."/".."battery", tonumber(data.status.battery))
+   update{topic = "/ud/1674/lora/"..lora_data.serial.."/".."temperature/1", value = tonumber(data.data.s1)}
+   update{topic = "/ud/1674/lora/"..lora_data.serial.."/".."rssi", value = tonumber(data.status.rssi)}
+   update{topic = "/ud/1674/lora/"..lora_data.serial.."/".."battery", value = tonumber(data.status.battery)}
 
 end
 

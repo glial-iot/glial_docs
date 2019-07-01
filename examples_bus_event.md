@@ -8,8 +8,7 @@
 function event_handler(value, topic, timestamp)
    store.old_value = store.old_value or 0
    difference =  value - store.old_value
-   set_value("/wb/AN4SSJFL/vaisala/26651/CO_d", difference)
-
+   update{topic = "/wb/AN4SSJFL/vaisala/26651/CO_d", value = difference}   
    store.old_value = value
 end
 ```
